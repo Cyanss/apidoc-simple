@@ -24,7 +24,7 @@ import java.util.List;
  */
 @CrossOrigin
 @RestController
-@RestNotelog("公司")
+@RestNotelog("公司信息")
 @RequestMapping("/simple/api/v0.1.0/company")
 public class CompanyController {
 

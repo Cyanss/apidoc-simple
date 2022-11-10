@@ -672,7 +672,7 @@
  * @apiUse TimeModelResponse 
  * @apiUse IdModelResponse
  * @apiUse InfoModelResponse
- * @apiUse CompanyResponse 
+ * @apiUse CompanyResponse
  * @apiUse ErrorResponse  
  * @apiSampleRequest /simple/api/v0.1.0/company/update
  * @apiParamExample {json} 200-RequestBody[公司信息更新成功参数示例]:
@@ -960,8 +960,8 @@
  * @apiUse IdFilter
  * @apiUse TimeFilter
  * @apiUse JsonbFilter  
- * @apiUse NameFilter 
- * @apiUse CompanyFilter  
+ * @apiUse NameFilter
+ * @apiUse CompanyFilter   
  * @apiUse DefaultHeader
  * @apiUse SuccessResponse
  * @apiUse RestPageResponse 
