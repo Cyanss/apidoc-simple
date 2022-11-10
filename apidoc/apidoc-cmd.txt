@@ -1,0 +1,7 @@
+npm install apidoc -g
+npm install apidoc-markdown -g
+
+apidoc -i src/ -o doc/
+
+apidoc-markdown -p src/ -o md/apidoc-server-api@0.1.0.md -t template/template-cyan.md
+

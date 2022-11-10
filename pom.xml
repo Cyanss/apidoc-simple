@@ -20,6 +20,8 @@
         <skipTests>true</skipTests>
         <rest-toolkit.version>1.0.5-SNAPSHOT</rest-toolkit.version>
         <rice-toolkit.version>1.0.4-SNAPSHOT</rice-toolkit.version>
+        <tk-mybatis-mapper.version>4.1.5</tk-mybatis-mapper.version>
+        <tk-mybatis-starter.version>2.1.5</tk-mybatis-starter.version>
     </properties>
     <dependencies>
         <dependency>

@@ -194,7 +194,7 @@
     -->
     <!--默认环境:打印控制台-->
     <springProfile name="default">
-        <logger name="io.github.nichetoolkit" level="debug"/>
+        <logger name="io.github.nichetoolkit" level="info"/>
         <logger name="cyan.simple.apidoc" level="debug"/>
         <root level="info" >
             <appender-ref ref="CONSOLE" />
@@ -207,7 +207,7 @@
     </springProfile>
 
     <springProfile name="local">
-        <logger name="io.github.nichetoolkit" level="debug"/>
+        <logger name="io.github.nichetoolkit" level="info"/>
         <logger name="cyan.simple.apidoc" level="debug"/>
         <root level="info" >
             <appender-ref ref="CONSOLE" />
@@ -221,7 +221,7 @@
 
     <!--开发环境:打印控制台-->
     <springProfile name="dev">
-        <logger name="io.github.nichetoolkit" level="debug"/>
+        <logger name="io.github.nichetoolkit" level="info"/>
         <logger name="cyan.simple.apidoc" level="debug"/>
         <root level="info" >
             <appender-ref ref="CONSOLE" />
@@ -235,7 +235,7 @@
 
     <!--生产环境:输出到文件-->
     <springProfile name="pro">
-        <logger name="io.github.nichetoolkit" level="debug"/>
+        <logger name="io.github.nichetoolkit" level="info"/>
         <logger name="cyan.simple.apidoc" level="debug"/>
         <root level="info">
             <appender-ref ref="CONSOLE" />

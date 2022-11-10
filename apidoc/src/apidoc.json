@@ -1,0 +1,24 @@
+{
+  "name": "Apidoc Simple Server Api",
+  "version": "0.1.0",
+  "description": "Apidoc simple project for Spring Boot Api",
+  "title": "apidoc-server-api@0.1.0",
+  "url": "http://127.0.0.1:8080/apidoc",
+  "sampleUrl": "http://127.0.0.1:8080/apidoc",
+  "order": [
+    "Error",
+    "Define",
+    "PostTitleAndError",
+    "PostError"
+  ],
+  "template": {
+    "withCompare": true,
+    "withGenerator": true
+  },
+  "header": {
+    "title": "Cyan (snow22314@outlook.com)"
+  },
+  "footer": {
+    "title": "apidoc-server"
+  }
+}

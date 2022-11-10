@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cyan.simple.apidoc.mapper.CompanyMapper">
+    <resultMap type="cyan.simple.apidoc.domain.entity.CompanyEntity" id="companyMap">
+        <id property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="telephone" column="telephone"/>
+        <result property="email" column="email"/>
+        <result property="address" column="address"/>
+        <result property="regdate" column="regdate"/>
+        <result property="properties" column="properties"/>
+        <result property="logicSign" column="logic_sign"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="all_column">
+        id, "code", "name", "description", telephone, "email", address, regdate, properties, logic_sign, create_time, update_time
+    </sql>
+
+    <insert id="save">
+        INSERT INTO company (
+        <include refid="all_column"/>
+        )
+        VALUES (
+        #{entity.id},
+        #{entity.code},
+        #{entity.name},
+        #{entity.description},
+        #{entity.telephone},
+        #{entity.email},
+        #{entity.address},
+        #{entity.regdate},
+        #{entity.properties},
+        #{entity.logicSign},
+        now(),
+        now()
+        ) ON CONFLICT (id) DO UPDATE
+        <set>
+            "code" = CASE WHEN EXCLUDED."code" IS NOT NULL THEN EXCLUDED."code" ELSE company."code" END,
+            "name" = CASE WHEN EXCLUDED."name" IS NOT NULL THEN EXCLUDED."name" ELSE company."name" END,
+            "description" = CASE WHEN EXCLUDED."description" IS NOT NULL THEN EXCLUDED."description" ELSE company."description" END,
+            telephone = CASE WHEN EXCLUDED.telephone IS NOT NULL THEN EXCLUDED.telephone ELSE company.telephone END,
+            "email" = CASE WHEN EXCLUDED."email" IS NOT NULL THEN EXCLUDED."email" ELSE company."email" END,
+            address = CASE WHEN EXCLUDED.address IS NOT NULL THEN EXCLUDED.address ELSE company.address END,
+            regdate = CASE WHEN EXCLUDED.regdate IS NOT NULL THEN EXCLUDED.regdate ELSE company.regdate END,
+            properties = CASE WHEN EXCLUDED.properties IS NOT NULL THEN EXCLUDED.properties ELSE company.properties END,
+            update_time = now()
+        </set>
+    </insert>
+
+    <update id="saveAll">
+        INSERT INTO company (
+        <include refid="all_column"/>
+        )
+        VALUES
+        <foreach item="entity" index="index" collection="entityList" separator=",">
+            (
+            #{entity.id},
+            #{entity.code},
+            #{entity.name},
+            #{entity.description},
+            #{entity.telephone},
+            #{entity.email},
+            #{entity.address},
+            #{entity.regdate},
+            #{entity.properties},
+            #{entity.logicSign},
+            now(),
+            now()
+            )
+        </foreach>
+        ON CONFLICT (id) DO UPDATE
+        <set>
+            "code" = CASE WHEN EXCLUDED."code" IS NOT NULL THEN EXCLUDED."code" ELSE company."code" END,
+            "name" = CASE WHEN EXCLUDED."name" IS NOT NULL THEN EXCLUDED."name" ELSE company."name" END,
+            "description" = CASE WHEN EXCLUDED."description" IS NOT NULL THEN EXCLUDED."description" ELSE company."description" END,
+            telephone = CASE WHEN EXCLUDED.telephone IS NOT NULL THEN EXCLUDED.telephone ELSE company.telephone END,
+            "email" = CASE WHEN EXCLUDED."email" IS NOT NULL THEN EXCLUDED."email" ELSE company."email" END,
+            address = CASE WHEN EXCLUDED.address IS NOT NULL THEN EXCLUDED.address ELSE company.address END,
+            regdate = CASE WHEN EXCLUDED.regdate IS NOT NULL THEN EXCLUDED.regdate ELSE company.regdate END,
+            properties = CASE WHEN EXCLUDED.properties IS NOT NULL THEN EXCLUDED.properties ELSE company.properties END,
+            update_time = now()
+        </set>
+    </update>
+
+    <delete id="deleteAll">
+        DELETE FROM company
+        WHERE id IN
+        <foreach item="id" index="index" collection="idList" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteById">
+        DELETE
+        FROM company
+        WHERE id = #{id}
+    </delete>
+
+    <update id="removeAll">
+        UPDATE company
+        SET logic_sign = ${sign}
+        WHERE id IN
+        <foreach item="id" index="index" collection="idList" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="removeById">
+        UPDATE company
+        SET logic_sign = ${sign}
+        WHERE id = #{id}
+    </update>
+
+    <select id="findById" resultMap="companyMap">
+        SELECT
+        <include refid="all_column"/>
+        FROM company
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="companyMap">
+        SELECT
+        <include refid="all_column"/>
+        FROM company
+        WHERE id in
+        <foreach item="id" index="index" collection="idList" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        ORDER BY update_time DESC
+    </select>
+
+    <select id="findAllByWhere" resultMap="companyMap">
+        SELECT
+        <include refid="all_column"/>
+        FROM company
+        WHERE 1=1
+        <if test="whereSql!=null">
+            ${whereSql}
+        </if>
+    </select>
+
+    <delete id="deleteAllByWhere">
+        DELETE FROM company
+        WHERE 1=1
+        <if test="whereSql!=null">
+            ${whereSql}
+        </if>
+    </delete>
+
+    <delete id="removeAllByWhere">
+        UPDATE company
+        SET logic_sign = ${sign}
+        WHERE 1=1
+        <if test="whereSql!=null">
+            ${whereSql}
+        </if>
+    </delete>
+
+    <select id="findByEntity" resultMap="companyMap">
+        SELECT <include refid="all_column"/>
+        FROM company
+        WHERE (name = #{entity.name} OR code = #{entity.code})
+        AND logic_sign = 1
+    </select>
+
+    <select id="findByEntityAndNotId" resultMap="companyMap">
+        SELECT <include refid="all_column"/>
+        FROM company
+        WHERE (name = #{entity.name} OR code = #{entity.code})
+        AND logic_sign = 1
+        AND id != #{id}
+    </select>
+
+</mapper>
